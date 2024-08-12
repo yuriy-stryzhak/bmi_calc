@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+}
+
+.container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 20px;
+  background-color: #fffcd3;
+}
+
+.title {
+  border-bottom: 1px solid #ccc;
+  padding: 20px 0;
+  background-color: #bdf5fc;
+}
+
+.input-section {
+  padding-left: 30px;
+  padding-right: 30px;
+}
