@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Slider from '@mui/material/Slider';
 import Container from '@mui/material/Container';
@@ -10,21 +10,21 @@ const DEFAULT_WEIGHT = 50;
 const DEFAULT_HEIGHT = 150;
 
 function App() {
-  const [height, setHeight] = useState(DEFAULT_HEIGHT);
-  const [weight, setWeight] = useState(DEFAULT_WEIGHT);
+  const [values, setValues] = useState({
+    height: DEFAULT_WEIGHT,
+    weight: DEFAULT_HEIGHT,
+  });
 
-  const handleHeightChange = (event, newValue) => {
-    setHeight(newValue);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
-  const handleWeightChange = (event, newValue) => {
-    setWeight(newValue);
-  };
-
-  const output = useMemo(() => {
-    const calculatedHeight = height / 100;
-    return (weight / (calculatedHeight * calculatedHeight)).toFixed(1);
-  }, [weight, height]);
+  const output = ((values.weight / ((values.height / 100) ** 2)).toFixed(1));
 
   return (
     <Container
@@ -45,11 +45,12 @@ function App() {
 
       <div className="input-section">
         <Typography variant="body1" gutterBottom>
-          Weight: {weight} kg
+          Weight: {values.weight} kg
         </Typography>
         <Slider
-          value={weight}
-          onChange={handleWeightChange}
+          value={values.weight}
+          onChange={(e) => handleChange(e)}
+          name="weight"
           step={1}
           min={40}
           max={220}
@@ -58,11 +59,12 @@ function App() {
         />
 
         <Typography variant="body1" gutterBottom>
-          Height: {height} cm
+          Height: {values.height} cm
         </Typography>
         <Slider
-          value={height}
-          onChange={handleHeightChange}
+          value={values.height}
+          name="height"
+          onChange={(e) => handleChange(e)}
           step={1}
           min={140}
           max={220}
